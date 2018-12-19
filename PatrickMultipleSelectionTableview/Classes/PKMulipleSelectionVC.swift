@@ -77,7 +77,13 @@ open class PKMulipleSelectionVC: UIViewController, UITableViewDelegate, UITableV
     //MARK: - Style Vars
     
     open var backgroundColorHeaderView: UIColor       = UIColor(red: 76.0/255.0, green: 82.0/255.0, blue: 83.0/255.0, alpha: 1.0)
-    open var backgroundColorDoneButton: UIColor       = UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 100.0/255.0, alpha: 1.0)
+    open var backgroundColorDoneButton: UIColor       = UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 100.0/255.0, alpha: 1.0){
+        didSet{
+            if self.isViewLoaded {
+                updateDoneButtonColors()
+            }
+        }
+    }
     open var backgroundColorTableView: UIColor        = UIColor(red: 59.0/255.0, green: 65.0/255.0, blue: 66.0/255.0, alpha: 1.0)
     open var backgroundColorSelectALlTitle: UIColor   = UIColor.white
     open var backgroundColorCellTitle: UIColor        = UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 100.0/255.0, alpha: 1.0)
@@ -172,13 +178,45 @@ open class PKMulipleSelectionVC: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    func updateDoneButtonColors(){
+        let disabledColorImage = self.imageFromColor(color: self.darker(color: backgroundColorDoneButton))
+        let highlightedColorImage = self.imageFromColor(color: self.lighter(color: backgroundColorDoneButton))
+        self.btnDone.setBackgroundImage(disabledColorImage, for: .disabled)
+        self.btnDone.setBackgroundImage(highlightedColorImage, for: .highlighted)
+        self.btnDone.setBackgroundImage(highlightedColorImage, for: .selected)
+        self.btnDone.backgroundColor = backgroundColorDoneButton
+    }
+    
+    func imageFromColor(color : UIColor) -> UIImage? {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        context!.setFillColor(color.cgColor)
+        context!.fill(rect)
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return img
+    }
+    
+    func lighter(color: UIColor) -> UIColor{
+        var (hue, saturation, brightness, alpha): (CGFloat, CGFloat, CGFloat, CGFloat) = (0.0, 0.0, 0.0, 0.0)
+        color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        return UIColor(hue: hue, saturation: saturation, brightness: min(brightness*1.3,1.0), alpha: alpha)
+    }
+    
+    func darker(color: UIColor) -> UIColor{
+        var (hue, saturation, brightness, alpha): (CGFloat, CGFloat, CGFloat, CGFloat) = (0.0, 0.0, 0.0, 0.0)
+        color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+        return UIColor(hue: hue, saturation: saturation, brightness: brightness*0.75, alpha: alpha)
+    }
+    
     //MARK: - Set Up UI
     open func SetUpUI(){
         self.tblView.backgroundColor = backgroundColorTableView
         self.btnSelectAll.setTitleColor(backgroundColorSelectALlTitle, for: UIControl.State.normal)
         self.viewHeader.backgroundColor = backgroundColorHeaderView
-        self.btnDone.backgroundColor = backgroundColorDoneButton
         self.btnDone.setTitleColor(backgroundColorDoneTitle, for: UIControl.State.normal)
+        updateDoneButtonColors()
     }
     
     @IBAction func btnCancelClicked(_ sender: AnyObject) {
@@ -253,21 +291,19 @@ open class PKMulipleSelectionVC: UIViewController, UITableViewDelegate, UITableV
     }
     
     //MARK: - View Touch Event
-    override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    
+    override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        
         if let touch = touches.first {
-            
-            if touch.view != self.viewContent {
-                if touch.view != viewHeader.viewWithTag(1) {
-                    if touch.view != imgSelectAll.viewWithTag(2) {
-                        
-                        self.willMove(toParent: nil)
-                        self.view.removeFromSuperview()
-                        self.removeFromParent()
-                    }
+            if let superview = self.viewContent.superview {
+                let touchpoint:CGPoint = touch.location(in: superview)
+                if !self.viewContent.frame.contains(touchpoint)  {
+                    self.didCancelSelection()
+                    dismiss()
                 }
             }
         }
-        super.touchesBegan(touches, with:event)
     }
 }
     

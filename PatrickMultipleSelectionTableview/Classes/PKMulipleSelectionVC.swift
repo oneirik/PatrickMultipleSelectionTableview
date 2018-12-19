@@ -123,6 +123,7 @@ open class PKMulipleSelectionVC: UIViewController, UITableViewDelegate, UITableV
         didSet {
             if self.isViewLoaded {
                 updateSelectAll()
+                updateDoneButtonEnabled()
             }
         }
     }
@@ -147,7 +148,7 @@ open class PKMulipleSelectionVC: UIViewController, UITableViewDelegate, UITableV
     func updateDoneButtonEnabled(){
         if(self.selectedIndex.count == 0){
             btnDone.isEnabled = canAcceptEmptySelection
-        }else{
+        }else if !btnDone.isEnabled {
             btnDone.isEnabled = true
         }
     }
@@ -197,8 +198,6 @@ open class PKMulipleSelectionVC: UIViewController, UITableViewDelegate, UITableV
         
         updateSelectAll()
         tblView.reloadData()
-        
-        updateDoneButtonEnabled()
     }
     
     @IBAction func btnDoneClicked(_ sender: Any) {

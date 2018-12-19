@@ -1,12 +1,12 @@
 
 /* Class = "UIButton"; normalTitle = "Done"; ObjectID = "54L-ri-xRf"; */
-"54L-ri-xRf.normalTitle" = "Done";
+"54L-ri-xRf.normalTitle" = "Feito";
 
 /* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "KO4-Wc-ufF"; */
-"KO4-Wc-ufF.normalTitle" = "Cancel";
+"KO4-Wc-ufF.normalTitle" = "Cancelar";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "nfr-NE-4Wv"; */
 "nfr-NE-4Wv.text" = "Label";
 
 /* Class = "UIButton"; normalTitle = "Select All"; ObjectID = "qMW-54-Tpr"; */
-"qMW-54-Tpr.normalTitle" = "Select All";
+"qMW-54-Tpr.normalTitle" = "Selecionar Tudo     ·";

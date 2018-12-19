@@ -31,17 +31,17 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qMW-54-Tpr">
-                                                        <rect key="frame" x="220" y="0.0" width="115" height="40"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="115" id="2fE-QV-vIH"/>
-                                                        </constraints>
-                                                        <state key="normal" title="Select All"/>
+                                                        <rect key="frame" x="223" y="0.0" width="104" height="40"/>
+                                                        <state key="normal" title="Select All     ·"/>
                                                         <connections>
                                                             <action selector="btnSelectALL:" destination="JAq-fB-0NX" eventType="touchUpInside" id="KAr-bC-GLg"/>
                                                         </connections>
                                                     </button>
                                                     <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unCheck" translatesAutoresizingMaskIntoConstraints="NO" id="Aqk-od-AAG">
                                                         <rect key="frame" x="307" y="10" width="20" height="20"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                                        </accessibility>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="20" id="2Rs-sZ-hVi"/>
                                                             <constraint firstAttribute="height" constant="20" id="mHc-46-h6d"/>
@@ -61,7 +61,7 @@
                                                 <color key="backgroundColor" red="0.29803921570000003" green="0.32156862749999998" blue="0.32549019610000002" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Aqk-od-AAG" secondAttribute="trailing" constant="8" id="8Jw-YF-Azs"/>
-                                                    <constraint firstAttribute="trailing" secondItem="qMW-54-Tpr" secondAttribute="trailing" id="8TP-O5-eaz"/>
+                                                    <constraint firstAttribute="trailing" secondItem="qMW-54-Tpr" secondAttribute="trailing" constant="8" id="8TP-O5-eaz"/>
                                                     <constraint firstItem="KO4-Wc-ufF" firstAttribute="firstBaseline" secondItem="qMW-54-Tpr" secondAttribute="firstBaseline" id="EjV-WU-c0n"/>
                                                     <constraint firstItem="qMW-54-Tpr" firstAttribute="top" secondItem="csK-9i-SKN" secondAttribute="top" id="FGj-Yx-LcC"/>
                                                     <constraint firstItem="KO4-Wc-ufF" firstAttribute="leading" secondItem="csK-9i-SKN" secondAttribute="leading" constant="8" id="HRv-Dk-kDT"/>

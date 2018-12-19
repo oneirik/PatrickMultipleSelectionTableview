@@ -187,8 +187,9 @@ open class PKMulipleSelectionVC: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func btnSelectALL(_ sender: Any) {
+        let allSelected = isSelectAll
         selectedIndex.removeAll()
-        if(!isSelectAll){
+        if(!allSelected){
             for i in 0 ..< arrContent.count {
                 selectedIndex.append(i)
             }

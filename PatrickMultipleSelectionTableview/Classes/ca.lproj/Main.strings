@@ -1,4 +1,12 @@
 
-"KO4-Wc-ufF.text" = "Cancel·lar";
-"qMW-54-Tpr.text" = "Select All";
-"54L-ri-xRf.text" = "Done";
+/* Class = "UIButton"; normalTitle = "Done"; ObjectID = "54L-ri-xRf"; */
+"54L-ri-xRf.normalTitle" = "Done";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "KO4-Wc-ufF"; */
+"KO4-Wc-ufF.normalTitle" = "Cancel";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "nfr-NE-4Wv"; */
+"nfr-NE-4Wv.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "Select All"; ObjectID = "qMW-54-Tpr"; */
+"qMW-54-Tpr.normalTitle" = "Select All";

@@ -46,7 +46,6 @@
 		973A728D363472A2C8963DAD9D2871C3 /* Pods-PatrickMultipleSelectionTableview_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PatrickMultipleSelectionTableview_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		9CD85D52515F82A153A39A7DE5D944F2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A40660A56996532ED914169A4B2BC92D /* Pods-PatrickMultipleSelectionTableview_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PatrickMultipleSelectionTableview_Example-resources.sh"; sourceTree = "<group>"; };
-		A7CC37C421C9C56B00108677 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A7CC37CD21C9C93700108677 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Main.strings; sourceTree = "<group>"; };
 		A7CC37CE21C9C94E00108677 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Main.strings; sourceTree = "<group>"; };
 		A7CC37CF21C9C94E00108677 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -55,6 +54,15 @@
 		A7CC37D221C9C94F00108677 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
 		A7CC37D321C9C94F00108677 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Main.strings; sourceTree = "<group>"; };
 		A7CC37D421C9C95000108677 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main.strings"; sourceTree = "<group>"; };
+		A7CC37EF21CADE7400108677 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A7CC37F221CADE7A00108677 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		A7CC37F421CADE8A00108677 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Main.strings; sourceTree = "<group>"; };
+		A7CC37F621CADE9900108677 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
+		A7CC37F821CADEA100108677 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		A7CC37FA21CADEA500108677 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		A7CC37FC21CADEA800108677 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
+		A7CC37FE21CADEAF00108677 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Main.strings; sourceTree = "<group>"; };
+		A7CC380021CADEB600108677 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main.strings"; sourceTree = "<group>"; };
 		A92F02FD1E923F7B00096C79 /* PKMulipleSelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PKMulipleSelectionVC.swift; sourceTree = "<group>"; };
 		A92F03001E92400800096C79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A93D0C8BCE3B0B0D6C1C72EA9CB00C96 /* Pods-PatrickMultipleSelectionTableview_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PatrickMultipleSelectionTableview_Tests-dummy.m"; sourceTree = "<group>"; };
@@ -132,7 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				A7CC37CC21C9C93700108677 /* Main.strings */,
-				A7CC37C421C9C56B00108677 /* Main.storyboard */,
+				A7CC37F021CADE7400108677 /* Main.storyboard */,
 				A92F02FD1E923F7B00096C79 /* PKMulipleSelectionVC.swift */,
 				A92F03001E92400800096C79 /* Assets.xcassets */,
 			);
@@ -409,6 +417,22 @@
 				A7CC37D421C9C95000108677 /* pt-BR */,
 			);
 			name = Main.strings;
+			sourceTree = "<group>";
+		};
+		A7CC37F021CADE7400108677 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7CC37EF21CADE7400108677 /* Base */,
+				A7CC37F221CADE7A00108677 /* en */,
+				A7CC37F421CADE8A00108677 /* it */,
+				A7CC37F621CADE9900108677 /* pt-PT */,
+				A7CC37F821CADEA100108677 /* de */,
+				A7CC37FA21CADEA500108677 /* fr */,
+				A7CC37FC21CADEA800108677 /* es */,
+				A7CC37FE21CADEAF00108677 /* ca */,
+				A7CC380021CADEB600108677 /* pt-BR */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

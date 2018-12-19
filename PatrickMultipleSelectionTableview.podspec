@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-Customize Multiple TableView Selection Swift3.1 created By Pratik Panchal
+Customize Multiple TableView Selection Swift4.2 created By Pratik Panchal
                       DESC
 
   s.homepage         = 'https://github.com/pratikpanchal13/PatrickMultipleSelectionTableview'

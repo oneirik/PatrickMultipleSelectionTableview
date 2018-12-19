@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
+open class PKMulipleSelectionVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     lazy var window : UIWindow? = nil
     
     open var showsCancelButton : Bool = false {
@@ -21,9 +21,7 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
     open var canAcceptEmptySelection : Bool = true {
         didSet{
             if self.isViewLoaded{
-                if(self.selectedIndex.count == 0){
-                    btnDone.isEnabled = canAcceptEmptySelection
-                }
+                updateDoneButtonEnabled()
             }
         }
     }
@@ -44,7 +42,7 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
     }
     
     ////////////////////////////////////////////////////////////////////////
-    //MARK: - Functions
+    //MARK: - Open Functions
     
     open func show(){
         if window == nil {
@@ -70,12 +68,13 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
                 window.isHidden = true
                 window.rootViewController = nil
                 self.window = nil
+                window.removeFromSuperview()
                 })
         }
     }
     
-    //open Variable Declaration For Data Passing
-    open var objGetSelectedIndex: [Int] = []                       // HomeVC
+    ////////////////////////////////////////////////////////////////////////
+    //MARK: - Style Vars
     
     open var backgroundColorHeaderView: UIColor       = UIColor(red: 76.0/255.0, green: 82.0/255.0, blue: 83.0/255.0, alpha: 1.0)
     open var backgroundColorDoneButton: UIColor       = UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 100.0/255.0, alpha: 1.0)
@@ -84,8 +83,14 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
     open var backgroundColorCellTitle: UIColor        = UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 100.0/255.0, alpha: 1.0)
     open var backgroundColorDoneTitle: UIColor        = UIColor.white
     
-    open var isSelectAll : Bool = false
-    open var passDataWithIndex:( _ arryData : Any, _ selectedIndex:NSMutableArray)->() = {_,_  in}
+    ////////////////////////////////////////////////////////////////////////
+    //MARK: - Completion functions with completion handlers
+    
+    open var didFinishWithSelection:( _ selectedData : [String], _ selectedIndexes : [Int])->() = {selectedData, selectedIndexes  in}
+    open var didCancelSelection:()->() = {}
+    
+    ////////////////////////////////////////////////////////////////////////
+    //MARK: - Outlets and other variables
     
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var btnSelectAll: UIButton!
@@ -96,9 +101,31 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
     
     @IBOutlet weak var cancelButton: UIButton!
     
-    //open Local Variable Declaration
-    open var arrContent: NSMutableArray = []
-    open var selectedIndex: NSMutableArray = []
+    var isSelectAll : Bool = false
+    
+    //open Variable Declaration For Preselection Indexes
+    open var objGetSelectedIndex: [Int] = [] { // HomeVC
+        didSet {
+            if self.isViewLoaded {
+                updatePreselection()
+            }
+        }
+    }
+    //open Local Variable Declaration Content And Selection
+    open var arrContent: [String] = [] {
+        didSet {
+            if self.isViewLoaded {
+                updateSelectAll()
+            }
+        }
+    }
+    open var selectedIndex: [Int] = [] {
+        didSet {
+            if self.isViewLoaded {
+                updateSelectAll()
+            }
+        }
+    }
     
     //MARK: - View Life Cycle
     override open func viewDidLoad() {
@@ -110,25 +137,39 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
         tblView.tableFooterView = UIView(frame: .zero)
         
         cancelButton.isHidden = !showsCancelButton
-    }
-    
-    override open func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        selectedIndex.addObjects(from: objGetSelectedIndex)
-        for i in objGetSelectedIndex {
-            let indexPath = IndexPath(row: i, section: 0)
-            tblView.selectRow(at: indexPath, animated: true, scrollPosition: .bottom)
-        }
-        if(selectedIndex.count == arrContent.count){
-            let imgUnCheck = UIImage(named:"Check", in: Bundle(for: PKMulipleSelectionVC.self), compatibleWith: nil)
-            imgSelectAll.image = imgUnCheck
-            isSelectAll = !isSelectAll;
-        }
-        self.tblView.reloadData()
+        
+        updatePreselection()
     }
     
     ////////////////////////////////////////////////////////////////////////
     //MARK: - Utilities
+    
+    func updateDoneButtonEnabled(){
+        if(self.selectedIndex.count == 0){
+            btnDone.isEnabled = canAcceptEmptySelection
+        }else{
+            btnDone.isEnabled = true
+        }
+    }
+    
+    func updatePreselection(){
+        selectedIndex.removeAll()
+        selectedIndex.append(contentsOf: objGetSelectedIndex)
+        updateSelectAll()
+        self.tblView.reloadData()
+    }
+    
+    func updateSelectAll(){
+        let allSelected : Bool = selectedIndex.count == arrContent.count
+        if(allSelected != isSelectAll){
+            let imgUnCheck = UIImage(named:"unCheck", in: Bundle(for: PKMulipleSelectionVC.self), compatibleWith: nil)
+            let imgCheck = UIImage(named:"Check", in: Bundle(for: PKMulipleSelectionVC.self), compatibleWith: nil)
+            
+            let img:UIImage = (allSelected ? imgCheck : imgUnCheck)!
+            imgSelectAll.image = img
+            isSelectAll = allSelected
+        }
+    }
     
     //MARK: - Set Up UI
     open func SetUpUI(){
@@ -139,39 +180,38 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
         self.btnDone.setTitleColor(backgroundColorDoneTitle, for: UIControl.State.normal)
     }
     
-    @IBAction func btnCancelClicked(sender: AnyObject) {
+    @IBAction func btnCancelClicked(_ sender: AnyObject) {
+        self.didCancelSelection()
+        
         dismiss()
     }
     
     @IBAction func btnSelectALL(_ sender: Any) {
-        selectedIndex.removeAllObjects()
-        if(!isSelectAll)
-        {
-            for i in arrContent {
-                selectedIndex.add(arrContent.index(of: i))
+        selectedIndex.removeAll()
+        if(!isSelectAll){
+            for i in 0 ..< arrContent.count {
+                selectedIndex.append(i)
             }
         }
         
-        let imgUnCheck = UIImage(named:"unCheck", in: Bundle(for: PKMulipleSelectionVC.self), compatibleWith: nil)
-        let imgCheck = UIImage(named:"Check", in: Bundle(for: PKMulipleSelectionVC.self), compatibleWith: nil)
-        
-        let img:UIImage = (!isSelectAll ? imgCheck : imgUnCheck)!
-        imgSelectAll.image = img
-        isSelectAll = !isSelectAll
+        updateSelectAll()
         tblView.reloadData()
+        
+        updateDoneButtonEnabled()
     }
     
     @IBAction func btnDoneClicked(_ sender: Any) {
-        let passingDataToHomeVC: NSMutableArray = []
-        for i  in selectedIndex {
-            passingDataToHomeVC.add(arrContent[i as! Int])
+        var passingDataToHomeVC : [String] = []
+        var passingSelectedIndexes : [Int] = []
+        
+        for i in selectedIndex.sorted() {
+            if i >= 0 && i < arrContent.count {
+                passingDataToHomeVC.append(arrContent[i])
+                passingSelectedIndexes.append(i)
+            }
         }
         
-        let strData = passingDataToHomeVC.componentsJoined(by: ",")
-        UserDefaults.standard.set(selectedIndex, forKey: "indexPath")
-        UserDefaults.standard.synchronize()
-        
-        self.passDataWithIndex(strData, selectedIndex)  // Passing Data Using Blocks to Parent VC
+        self.didFinishWithSelection(passingDataToHomeVC, passingSelectedIndexes)  // Passing Finish Selection Using Blocks to Parent VC
         
         dismiss()
     }
@@ -199,22 +239,16 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if selectedIndex.contains(indexPath.row){
             let index  = indexPath.row
-            selectedIndex.remove(index)
+            if let arrayIndex = selectedIndex.firstIndex(of: index){
+                selectedIndex.remove(at: arrayIndex)
+            }
         }else{
             let index  = indexPath.row
-            selectedIndex.add(index)
+            if !selectedIndex.contains(index){
+                selectedIndex.append(index)
+            }
         }
-        if(isSelectAll && selectedIndex.count != arrContent.count){
-            
-            let imgUnCheck = UIImage(named:"unCheck", in: Bundle(for: PKMulipleSelectionVC.self), compatibleWith: nil)
-            imgSelectAll.image = imgUnCheck
-            isSelectAll = !isSelectAll;
-        }else if(selectedIndex.count == arrContent.count){
-            
-            let imgCheck = UIImage(named:"Check", in: Bundle(for: PKMulipleSelectionVC.self), compatibleWith: nil)
-            imgSelectAll.image = imgCheck
-            isSelectAll = !isSelectAll;
-        }
+        updateSelectAll()
         tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.none)
     }
     

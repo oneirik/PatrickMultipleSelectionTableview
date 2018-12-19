@@ -54,7 +54,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="btnCancelClicked:" destination="JAq-fB-0NX" eventType="touchUpInside" id="8ha-G7-n1q"/>
+                                                            <action selector="btnCancelClicked:" destination="JAq-fB-0NX" eventType="touchUpInside" id="oVT-hT-oB2"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

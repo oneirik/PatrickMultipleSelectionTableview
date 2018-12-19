@@ -9,6 +9,8 @@
 import UIKit
 
 open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    lazy var window : UIWindow? = nil
+    
     open var showsCancelButton : Bool = false {
         didSet{
             if self.isViewLoaded{
@@ -27,15 +29,9 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
     }
     
     ////////////////////////////////////////////////////////////////////////
-    // Class Methods
+    //MARK: - Class Methods
     
     open class func controller() -> PKMulipleSelectionVC?{
-//        let podBundle = Bundle(for: PKMulipleSelectionVC.self)
-//        let bundleURL = podBundle.url(forResource: "PatrickMultipleSelectionTableview", withExtension: "bundle")
-//        let bundle = Bundle(url: bundleURL!)!
-//        let storyboard = UIStoryboard(name: "Main", bundle: bundle)
-//        let vc:PKMulipleSelectionVC = storyboard.instantiateViewController(withIdentifier: "PKMulipleSelectionVC") as! PKMulipleSelectionVC
-        
         let podBundle = Bundle(for: PKMulipleSelectionVC.self)
         if let bundleURL = podBundle.url(forResource: "PatrickMultipleSelectionTableview", withExtension: "bundle"), let bundle = Bundle(url: bundleURL) {
             let storyboard = UIStoryboard(name: "Main", bundle: bundle)
@@ -45,6 +41,37 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
         }
         
         return nil
+    }
+    
+    ////////////////////////////////////////////////////////////////////////
+    //MARK: - Functions
+    
+    open func show(){
+        if window == nil {
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window!.rootViewController = self
+            self.window!.isHidden = true
+            self.window!.windowLevel = (UIApplication.shared.keyWindow?.windowLevel ?? UIWindow.Level.normal) + 10
+            self.window!.backgroundColor = UIColor.clear
+            self.view.alpha = 0.0
+        }
+        
+        self.window?.isHidden = false
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+            self.view.alpha = 1.0
+        }, completion: nil)
+    }
+    
+    open func dismiss(){
+        if let window = self.window{
+            UIView.animate(withDuration: 0.4, delay: 0.0, options: UIView.AnimationOptions.curveEaseInOut, animations: {
+                self.view.alpha = 0.0
+            }, completion: { (finish) in
+                window.isHidden = true
+                window.rootViewController = nil
+                self.window = nil
+                })
+        }
     }
     
     //open Variable Declaration For Data Passing
@@ -100,6 +127,9 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
         self.tblView.reloadData()
     }
     
+    ////////////////////////////////////////////////////////////////////////
+    //MARK: - Utilities
+    
     //MARK: - Set Up UI
     open func SetUpUI(){
         self.tblView.backgroundColor = backgroundColorTableView
@@ -110,8 +140,7 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
     }
     
     @IBAction func btnCancelClicked(sender: AnyObject) {
-    
-    
+        dismiss()
     }
     
     @IBAction func btnSelectALL(_ sender: Any) {
@@ -144,9 +173,7 @@ open class PKMulipleSelectionVC: UIViewController,UITableViewDelegate,UITableVie
         
         self.passDataWithIndex(strData, selectedIndex)  // Passing Data Using Blocks to Parent VC
         
-        self.willMove(toParent: nil)
-        self.view.removeFromSuperview()
-        self.removeFromParent()
+        dismiss()
     }
     
     open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{

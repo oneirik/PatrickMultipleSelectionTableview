@@ -25,7 +25,7 @@ Customize Multiple TableView Selection Swift3.1 created By Pratik Panchal
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'pratikpanchal13' => 'pratik.panchal13@gmail.com' }
-  s.source           = { :git => 'https://github.com/pratikpanchal13/PatrickMultipleSelectionTableview.git', :branch => "PatrickMultipleSelectionTableview",:tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/oneirik/PatrickMultipleSelectionTableview.git', :branch => "PatrickMultipleSelectionTableview",:tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
@@ -37,7 +37,7 @@ Customize Multiple TableView Selection Swift3.1 created By Pratik Panchal
 
   s.source_files = 'PatrickMultipleSelectionTableview/Classes/**/*.{swift}'
   s.resource_bundles = {
-    'PatrickMultipleSelectionTableview' => ['PatrickMultipleSelectionTableview/Classes/**/*.{storyboard,xib,nib,xcassets,json,imageset,png}']
+    'PatrickMultipleSelectionTableview' => ['PatrickMultipleSelectionTableview/Classes/**/*.{storyboard,xib,nib,xcassets,json,imageset,png,strings}']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'

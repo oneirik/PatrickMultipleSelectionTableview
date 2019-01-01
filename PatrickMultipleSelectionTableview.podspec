@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'PatrickMultipleSelectionTableview'
-  s.version          = '0.2.1'
+  s.version          = '0.2.2'
   s.summary          = 'Customize Multiple Selection Tableview'
 
 # This description is used to generate tags and improve search results.
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 Customize Multiple TableView Selection Swift4.2 created By Pratik Panchal
                       DESC
 
-  s.homepage         = 'https://github.com/pratikpanchal13/PatrickMultipleSelectionTableview'
+  s.homepage         = 'https://github.com/oneirik/PatrickMultipleSelectionTableview'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'pratikpanchal13' => 'pratik.panchal13@gmail.com' }

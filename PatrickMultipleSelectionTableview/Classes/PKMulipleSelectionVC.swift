@@ -89,6 +89,14 @@ open class PKMulipleSelectionVC: UIViewController, UITableViewDelegate, UITableV
     open var backgroundColorCellTitle: UIColor        = UIColor(red: 87.0/255.0, green: 188.0/255.0, blue: 100.0/255.0, alpha: 1.0)
     open var backgroundColorDoneTitle: UIColor        = UIColor.white
     
+    open var indicatorStyle: UIScrollView.IndicatorStyle = UIScrollView.IndicatorStyle.default{
+        didSet{
+            if self.isViewLoaded {
+                self.tblView.indicatorStyle = indicatorStyle
+            }
+        }
+    }
+    
     ////////////////////////////////////////////////////////////////////////
     //MARK: - Completion functions with completion handlers
     
@@ -216,6 +224,9 @@ open class PKMulipleSelectionVC: UIViewController, UITableViewDelegate, UITableV
         self.btnSelectAll.setTitleColor(backgroundColorSelectALlTitle, for: UIControl.State.normal)
         self.viewHeader.backgroundColor = backgroundColorHeaderView
         self.btnDone.setTitleColor(backgroundColorDoneTitle, for: UIControl.State.normal)
+        
+        self.tblView.indicatorStyle = indicatorStyle
+        
         updateDoneButtonColors()
     }
     
